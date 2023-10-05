@@ -50,11 +50,13 @@ public class Term : IComparable
         setExponent(exponent);
     }
 
-    // Evaluates the current term at x and returns the result
-    /*public double Evaluate(double x)
+    // Name:    Danish
+    // Summary: Evaluate method will have value for x which will be used to get the double returning
+    //          returning value after we power it by exponent and multiply it with coefficient
+    public double Evaluate(double x)
     {
-
-    }*/
+        return coefficient * Math.Pow(x, exponent);
+    }
     
     // Name:    Danish
     // Summary: CompareTo method compares current object to another object
