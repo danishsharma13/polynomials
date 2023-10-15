@@ -1,5 +1,5 @@
-﻿// Group members: Danish Sharma, Sami, Tushar
-// Group members IDs: 0623392, 
+﻿// Group members: Danish Sharma, Sami Ali, Tushar Dhiman
+// Group members IDs: 0623392, 0791752, 0757538
 // Assignment 1 Polynomials
 
 // -----------------------------------------------------------------------------------------------------------------
@@ -495,7 +495,57 @@ class Program
 {
     static void Main(string[] args)
     {
-        Term t = new Term(-4, 1);
+
+        Term t1 = new Term(0, 1);
+        Term t2 = new Term(3, 1);
+        Term t3 = new Term(-6.7, 3);
+        Term t4 = new Term(7.85, 0);
+
+        Node<Term> n1 = new Node<Term>(t1, null);
+        Node<Term> current = n1;
+
+        while(current != null)
+        {
+            Console.Write("NodeItem: " + current.Item + " --> ");
+            current = current.Next;
+        }
+        Console.WriteLine("null");
+
+
+        Node<Term> n2 = new Node<Term>(t2, null);
+        n1.Next = n2;
+        current = n1;
+
+        while (current != null)
+        {
+            Console.Write("NodeItem: " + current.Item + " --> ");
+            current = current.Next;
+        }
+        Console.WriteLine("null");
+
+        Node<Term> n3 = new Node<Term>(t3, null);
+        n2.Next = n3;
+        current = n1;
+
+        while (current != null)
+        {
+            Console.Write("NodeItem: " + current.Item + " --> ");
+            current = current.Next;
+        }
+        Console.WriteLine("null");
+
+        Node<Term> n4 = null;
+        current = n4;
+
+        while (current != null)
+        {
+            Console.Write("NodeItem: " + current.Item + " --> ");
+            current = current.Next;
+        }
+        Console.WriteLine("null");
+
+
+        /*Term t = new Term(-4, 1);
         Term y = new Term(-5, 2);
         Term c = new Term(3, 0);
         Polynomial p = new Polynomial();
@@ -522,7 +572,7 @@ class Program
         pp.Insert(p + p2);
         pp.Insert(p * p2);
         pp.Retrieve(4).Print();
-        //Console.WriteLine(t);
+        //Console.WriteLine(t);*/
     }
 }
 
