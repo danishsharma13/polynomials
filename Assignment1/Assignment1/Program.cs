@@ -149,7 +149,6 @@ public class Polynomial : ICloneable
     //          to the appropriate term or in the list itself.
     public void AddTerm(Term t)
     {
-
         // If front is null, if it is null then add the term to the list
         // Else there is already nodes in the list, then add accordingly
         if (this.front == null)
@@ -177,7 +176,7 @@ public class Polynomial : ICloneable
             // If the current Item matches with the t term then add them
             // Else if the current Item doesn not match, make a new Node<Term>
             //      and add it in the correct order
-            if (current != null&& current.Item.CompareTo(t) == 0) 
+            if (current != null && current.Item.CompareTo(t) == 0) 
             {
                 // Add the coefficients.
                 current.Item.Coefficient += t.Coefficient;
@@ -297,10 +296,8 @@ public class Polynomial : ICloneable
             // then move to next q term
             while (currentQ != null)
             {
-                double newCoefficient = currentP.Item.Coefficient * currentQ.Item.Coefficient;
-                int newExponent = currentP.Item.Exponent + currentQ.Item.Exponent;
-
-                result.AddTerm(new Term(newCoefficient, newExponent));
+                result.AddTerm(new Term(currentP.Item.Coefficient * currentQ.Item.Coefficient, 
+                    currentP.Item.Exponent + currentQ.Item.Exponent));
 
                 currentQ = currentQ.Next;
             }
@@ -458,9 +455,9 @@ public class Polynomials
     {
         // If the i integer is within the valid range of list then remove the polynomial
         // Else throw a new execption
-        if (i >= 0 && i < L.Count)
+        if (i >= 1 && i <= L.Count)
         {
-            L.RemoveAt(i);
+            L.RemoveAt(i - 1);
         }
         else
         {
@@ -480,7 +477,7 @@ public class Polynomials
         // For loop until we print all polynomial in the list
         for (int i = 0; i < L.Count; i++)
         {
-            Console.Write($"Polynomial {i + 1}: ");
+            Console.Write($"Polynomial Position {i + 1}: ");
             L[i].Print();
         }
     }
@@ -493,86 +490,192 @@ public class Polynomials
 //          Polynomial, Node and Term classes.
 class Program
 {
+    // Summary: Main program that shows user the User Interface
     static void Main(string[] args)
     {
+        // Collection of polynomials
+        Polynomials S = new Polynomials();
 
-        Term t1 = new Term(0, 1);
-        Term t2 = new Term(3, 1);
-        Term t3 = new Term(-6.7, 3);
-        Term t4 = new Term(7.85, 0);
+        // If exit is false then the while loop will keep running
+        bool exit = false;
 
-        Node<Term> n1 = new Node<Term>(t1, null);
-        Node<Term> current = n1;
-
-        while(current != null)
+        // While exit is false, keep looping and ask user for their choice
+        while (!exit)
         {
-            Console.Write("NodeItem: " + current.Item + " --> ");
-            current = current.Next;
+            Console.WriteLine("\n\n   Choose from the following:");
+            Console.WriteLine("1) To create a polynomial and insert it into S");
+            Console.WriteLine("2) To add two polynomials from S (retrieved by index) and to insert the resultant polynomial into S");
+            Console.WriteLine("3) To multiply two polynomials from S (retrieved by index) and to insert the resultant polynomial into S");
+            Console.WriteLine("4) To delete the polynomial from S at a given index");
+            Console.WriteLine("5) To evaluate the polynomial from S at a given index");
+            Console.WriteLine("6) To clone the polynomial from S (retrieved by index) and to insert its clone into S");
+            Console.WriteLine("7) EXIT the program");
+            Console.WriteLine();
+
+            // Get user input that matches with the options above
+            Console.Write("Your input: ");
+            string userInput = Console.ReadLine();
+            Console.WriteLine();
+
+            // Parse the user input and then use switch statement to display menu and do the list manulipation according to
+            // option number input
+            if (int.TryParse(userInput, out int number))
+            {
+                switch (number)
+                {
+                    case 1:
+                        option1(S);
+                        break;
+                    case 2:
+                        option2(S);
+                        break;
+                    case 3:
+                        option3(S);
+                        break;
+                    case 4:
+                        option4(S);
+                        break;
+                    case 5:
+                        option5(S);
+                        break;
+                    case 6:
+                        option6(S);
+                        break;
+                    case 7:
+                        exit = true;
+                        break;
+                    default:
+                        Console.WriteLine("\n\nInvalid choice. Please select a valid option.\n\n");
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("\n\nInvalid input. Please enter a valid option.\n\n");
+            }
         }
-        Console.WriteLine("null");
+    }
 
-
-        Node<Term> n2 = new Node<Term>(t2, null);
-        n1.Next = n2;
-        current = n1;
-
-        while (current != null)
-        {
-            Console.Write("NodeItem: " + current.Item + " --> ");
-            current = current.Next;
-        }
-        Console.WriteLine("null");
-
-        Node<Term> n3 = new Node<Term>(t3, null);
-        n2.Next = n3;
-        current = n1;
-
-        while (current != null)
-        {
-            Console.Write("NodeItem: " + current.Item + " --> ");
-            current = current.Next;
-        }
-        Console.WriteLine("null");
-
-        Node<Term> n4 = null;
-        current = n4;
-
-        while (current != null)
-        {
-            Console.Write("NodeItem: " + current.Item + " --> ");
-            current = current.Next;
-        }
-        Console.WriteLine("null");
-
-
-        /*Term t = new Term(-4, 1);
-        Term y = new Term(-5, 2);
-        Term c = new Term(3, 0);
+    // Summary: Option1 method is to display  
+    static void option1(Polynomials collectionS)
+    {
+        // New polynomial that will have new terms added to it and then pushed to Polynomials S
         Polynomial p = new Polynomial();
-        p.AddTerm(t);
-        p.AddTerm(y);
-        p.AddTerm(c);
-        p.Print();
 
+        // If exit is false then the while loop will keep running
+        bool exit = false;
 
-        Term tt = new Term(-3, 1);
-        Term yy = new Term(67, 4);
-        Term cc = new Term(13, 0);
-        Polynomial p2 = new Polynomial();
-        p2.AddTerm(tt);
-        p2.AddTerm(yy);
-        p2.AddTerm(cc);
-        p2.Print();
+        // While exit is false, keep looping and ask user for to add terms to polynomial
+        while (!exit)
+        {
+            Console.WriteLine("\n\n   Option 1 Menu: Creating Polynomial.");
+            Console.WriteLine("1) Add term");
+            Console.WriteLine("2) Save polynomial (If no new terms added, then save will just create 0 polynomial and save it.");
+            Console.WriteLine("3) EXIT Option 1 program!");
 
-        Polynomials pp = new Polynomials();
-        pp.Insert(p);
-        pp.Insert(p2);
-        pp.Print();
+            // Get user input that matches with the options above
+            Console.Write("Your input: ");
+            string userInput = Console.ReadLine();
 
-        pp.Insert(p + p2);
-        pp.Insert(p * p2);
-        pp.Retrieve(4).Print();
-        //Console.WriteLine(t);*/
+            // Parse the user input and then use switch statement to display menu and do the list manulipation according to
+            // option number input
+            if (int.TryParse(userInput, out int number))
+            {
+                if (number == 1)
+                {
+                    // Boolean to check if the coefficient and exponent was proper read from user input
+                    bool readCoef = false;
+                    bool readExpo = false;
+
+                    // Display and read coefficient and exponent menu entry
+                    Console.Write("Enter Coefficient (double): ");
+                    string readCoefficient = Console.ReadLine();
+                    double coef = 0.0;
+
+                    Console.Write("Enter Exponent (integer): ");
+                    string readExponent = Console.ReadLine();
+                    int expo = -1;
+
+                    // Parse both coefficient and exponent number and assign them to respective variables.
+                    if (double.TryParse(readCoefficient, out double coefficientNumber))
+                    {
+                        coef = coefficientNumber;
+                        readCoef = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("\n\nInvalid input. Please enter a valid coefficient.\n\n");
+                    }
+
+                    if (int.TryParse(readExponent, out int exponentNumber))
+                    {
+                        expo = exponentNumber;
+                        readExpo = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("\n\nInvalid input. Please enter a valid coefficient.\n\n");
+                    }
+
+                    // If both coefficient and exponent are valid then add them to p polynomial
+                    if (readCoef && readExpo)
+                    {
+                        p.AddTerm(new Term(coef, expo));
+                        Console.WriteLine("\n\nPolynomial term added, current polynomial: ");
+                        p.Print();
+                    }
+                }
+                else if (number == 2)
+                {
+                    collectionS.Insert(p);
+                    Console.WriteLine("\n\nPolynomial added to list: ");
+                    collectionS.Print();
+                }
+                else if(number == 3)
+                {
+                    exit = true;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid option.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid option.");
+            }
+
+        }
+    }
+
+    // Summary: Option2 method is to display
+    static void option2(Polynomials collectionS)
+    {
+
+    }
+
+    // Summary: Option3 method is to display 
+    static void option3(Polynomials collectionS)
+    {
+
+    }
+
+    // Summary: Option4 method is to display 
+    static void option4(Polynomials collectionS)
+    {
+
+    }
+
+    // Summary: Option5 method is to display 
+    static void option5(Polynomials collectionS)
+    {
+
+    }
+
+    // Summary: Option6 method is to display 
+    static void option6(Polynomials collectionS)
+    {
+
     }
 }
 
