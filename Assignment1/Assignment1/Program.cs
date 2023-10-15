@@ -86,10 +86,15 @@ public class Term : IComparable
     // Summary: ToString method returns a string of the Term
     public override string ToString()
     {
+        // If coefficient is 0 then print out empty string
         // If exponent is greater than 1 then we display exponent integer
         //      in string
         // If exponent is 1, then we only display coefficient and x
         // Else exponent is 0, then we only show coefficient
+        if (this.Coefficient == 0)
+        {
+            return "0";
+        }
         if (this.Exponent > 1)
         {
             return $"{this.Coefficient}x^{this.Exponent}";
@@ -431,9 +436,9 @@ public class Polynomials
     {
         // If the i integer is within the valid range of list then retrieve the polynomial
         // Else throw a new execption
-        if (i >= 0 && i < L.Count)
+        if (i >= 1 && i <= L.Count)
         {
-            return L[i];
+            return L[i - 1];
         }
         else
         {
@@ -478,6 +483,46 @@ public class Polynomials
             Console.Write($"Polynomial {i + 1}: ");
             L[i].Print();
         }
+    }
+}
+
+// -----------------------------------------------------------------------------------------------------------------
+
+// Class Program
+// Summary: The Program class is created to create the user inferface so they can manipulate the Polynomials,
+//          Polynomial, Node and Term classes.
+class Program
+{
+    static void Main(string[] args)
+    {
+        Term t = new Term(-4, 1);
+        Term y = new Term(-5, 2);
+        Term c = new Term(3, 0);
+        Polynomial p = new Polynomial();
+        p.AddTerm(t);
+        p.AddTerm(y);
+        p.AddTerm(c);
+        p.Print();
+
+
+        Term tt = new Term(-3, 1);
+        Term yy = new Term(67, 4);
+        Term cc = new Term(13, 0);
+        Polynomial p2 = new Polynomial();
+        p2.AddTerm(tt);
+        p2.AddTerm(yy);
+        p2.AddTerm(cc);
+        p2.Print();
+
+        Polynomials pp = new Polynomials();
+        pp.Insert(p);
+        pp.Insert(p2);
+        pp.Print();
+
+        pp.Insert(p + p2);
+        pp.Insert(p * p2);
+        pp.Retrieve(4).Print();
+        //Console.WriteLine(t);
     }
 }
 
