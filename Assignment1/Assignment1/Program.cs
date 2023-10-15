@@ -2,7 +2,7 @@
 // Group members IDs: 0623392, 
 // Assignment 1 Polynomials
 
-// -------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------
 
 // Class Term
 // Summary: The class Term encapsulates the coefficient and exponent of a single polynomial term.
@@ -105,7 +105,7 @@ public class Term : IComparable
     }
 }
 
-// -------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------
 
 // Class Node<T> (Generic)
 // Summary: The generic class Node contains an item<T> and a reference to the next Node.
@@ -123,7 +123,7 @@ public class Node<T>
     }
 }
 
-// -------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------
 
 // Class Polynomial
 // Summary: The class Polynomial will have a polynomial expression and will calculate, manipulate
@@ -367,32 +367,117 @@ public class Polynomial : ICloneable
     //          string output
     public void Print()
     {
-        // Current variable to traverse the list
-        // isFirstTerm boolean to check if it is first term
-        Node<Term>? current = front;
-        bool isFirstTerm = true;
-
-        // While loop to traverse through the polynomial list, print the terms with
-        //      "+" sign between then, to make it readable
-        while (current != null)
+        // If front is null then the polynomial is a 0 polynomial
+        // Else the polynomial is not 0 polynomial and have terms
+        if (front == null)
         {
-            // If isFirstTerm is true then just print the term, then set isFirstTerm to false
-            // Else we include the "+" sign and the current Item, then move to current next
-            if (isFirstTerm)
-            {
-                Console.Write(current.Item);
-                isFirstTerm = false;
-            }
-            else
-            {
-                Console.Write(" + " + current.Item);
-            }
-
-            current = current.Next;
+            Console.WriteLine(0);
         }
+        else
+        {
+            // Current variable to traverse the list
+            // isFirstTerm boolean to check if it is first term
+            Node<Term>? current = front;
+            bool isFirstTerm = true;
 
-        Console.WriteLine();
+            // While loop to traverse through the polynomial list, print the terms with
+            //      "+" sign between then, to make it readable
+            while (current != null)
+            {
+                // If isFirstTerm is true then just print the term, then set isFirstTerm to false
+                // If Coefficient is a negative value, then we print the term with a negative sign
+                // Else we include the "+" sign and the current Item, then move to current next
+                if (isFirstTerm)
+                {
+                    Console.Write(current.Item);
+                    isFirstTerm = false;
+                }
+                else if (current.Item.Coefficient < 0)
+                {
+                    Console.Write(" - " + current.Item.ToString().Substring(1));
+                }
+                else
+                {
+                    Console.Write(" + " + current.Item);
+                }
+
+                current = current.Next;
+            }
+
+            Console.WriteLine();
+        }
     }
 }
 
+// -----------------------------------------------------------------------------------------------------------------
+
+// Class Polynomials
+// Summary: The class Polynomials s is a collection of polynomials stored in an instance of the generic
+//          library class List.
+public class Polynomials
+{
+    // Data members
+    private List<Polynomial> L;
+
+    // Summary: No-args constructor that populates the data member L to a new List<Polynomial>
+    public Polynomials()
+    {
+        L = new List<Polynomial>();
+    }
+
+    // Summary: Retrieve method takes in an integer that is the item number in the list and returns the
+    //          polynomial in that position.
+    public Polynomial Retrieve(int i)
+    {
+        // If the i integer is within the valid range of list then retrieve the polynomial
+        // Else throw a new execption
+        if (i >= 0 && i < L.Count)
+        {
+            return L[i];
+        }
+        else
+        {
+            throw new ArgumentOutOfRangeException("Invalid index! Please enter valid position number.");
+        }
+    }
+
+    // Summary: Insert method allows user to add a new polynomial expression in the list.
+    public void Insert(Polynomial p)
+    {
+        L.Add(p);
+    }
+
+    // Summary: Delete method takes in an integer that is the item number in the list and removes the
+    //          polynomial in that position.
+    public void Delete(int i)
+    {
+        // If the i integer is within the valid range of list then remove the polynomial
+        // Else throw a new execption
+        if (i >= 0 && i < L.Count)
+        {
+            L.RemoveAt(i);
+        }
+        else
+        {
+            throw new ArgumentOutOfRangeException("Invalid index! Please enter valid position number.");
+        }
+    }
+
+    // Summary: Size method will return the lenght of the list.
+    public int Size()
+    {
+        return L.Count;
+    }
+
+    // Summary: Print method will print all the polynomials in the list with their correct position number.
+    public void Print()
+    {
+        // For loop until we print all polynomial in the list
+        for (int i = 0; i < L.Count; i++)
+        {
+            Console.Write($"Polynomial {i + 1}: ");
+            L[i].Print();
+        }
+    }
+}
 
