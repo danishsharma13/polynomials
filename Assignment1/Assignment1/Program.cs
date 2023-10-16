@@ -524,22 +524,22 @@ class Program
                 switch (number)
                 {
                     case 1:
-                        option1(S);
+                        option1(ref S);
                         break;
                     case 2:
-                        option2(S);
+                        option2(ref S);
                         break;
                     case 3:
-                        option3(S);
+                        option3(ref S);
                         break;
                     case 4:
-                        option4(S);
+                        option4(ref S);
                         break;
                     case 5:
-                        option5(S);
+                        option5(ref S);
                         break;
                     case 6:
-                        option6(S);
+                        option6(ref S);
                         break;
                     case 7:
                         exit = true;
@@ -556,8 +556,8 @@ class Program
         }
     }
 
-    // Summary: Option1 method is to display  
-    static void option1(Polynomials collectionS)
+    // Summary: Option1 method is to display sub menu system that allows users to create new polynomials
+    static void option1(ref Polynomials collectionS)
     {
         // New polynomial that will have new terms added to it and then pushed to Polynomials S
         Polynomial p = new Polynomial();
@@ -574,7 +574,7 @@ class Program
             Console.WriteLine("3) EXIT Option 1 program!");
 
             // Get user input that matches with the options above
-            Console.Write("Your input: ");
+            Console.Write("\nYour input: ");
             string userInput = Console.ReadLine();
 
             // Parse the user input and then use switch statement to display menu and do the list manulipation according to
@@ -648,34 +648,404 @@ class Program
         }
     }
 
-    // Summary: Option2 method is to display
-    static void option2(Polynomials collectionS)
+    // Summary: Option2 method is to display sub menu for adding 2 polynomials based on indexes
+    static void option2(ref Polynomials collectionS)
     {
+        // If exit is false then the while loop will keep running
+        bool exit = false;
 
+        // While exit is false, keep looping and ask user for valid index to add polynomials
+        while (!exit)
+        {
+            Console.WriteLine("\n\n   Option 2 Menu: Add 2 Polynomials.");
+            Console.WriteLine("1) Input 2 index which you want to add together");
+            Console.WriteLine("2) EXIT Option 2 program!");
+
+            Console.WriteLine("\n\nCurrent Polynomials List: ");
+            collectionS.Print();
+            Console.WriteLine();
+
+            // Get user input that matches with the options above
+            Console.Write("Your input: ");
+            string userInput = Console.ReadLine();
+
+            // Parse the user input and then use switch statement to display menu and do the list manulipation according to
+            // option number input
+            if (int.TryParse(userInput, out int number))
+            {
+                if(number == 1)
+                {
+                    // Boolean to check if the indexes were properly read from user input
+                    bool readIdx1 = false;
+                    bool readIdx2 = false;
+
+                    // Display and take user input for indexes
+                    Console.Write("\nEnter 1st index: ");
+                    string idx1Input = Console.ReadLine();
+                    int idx1 = -1;
+
+                    Console.Write("\nEnter 2nd index: ");
+                    string idx2Input = Console.ReadLine();
+                    int idx2 = -1;
+
+                    // Parse the integers
+                    if (int.TryParse(idx1Input, out int numberIdx1))
+                    {
+                        idx1 = numberIdx1;
+                        readIdx1 = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter a valid index.");
+                    }
+
+                    // Parse the integers
+                    if (int.TryParse(idx2Input, out int numberIdx2))
+                    {
+                        idx2 = numberIdx2;
+                        readIdx2 = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter a valid index.");
+                    }
+
+                    // If both index are valid integers then add the polynomials and store it in the list
+                    if (readIdx1 && readIdx2)
+                    {
+                        collectionS.Insert(collectionS.Retrieve(idx1) + collectionS.Retrieve(idx2));
+                        Console.WriteLine("\n\nPolynomials have been added and saved in the Polynomial list: ");
+                        collectionS.Print();
+                    }
+                }
+                else if (number == 2)
+                {
+                    exit = true;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid option.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid option.");
+            }
+        }
     }
 
-    // Summary: Option3 method is to display 
-    static void option3(Polynomials collectionS)
+    // Summary: Option3 method is to display sub menu for multiplying 2 polynomials based on indexes
+    static void option3(ref Polynomials collectionS)
     {
+        // If exit is false then the while loop will keep running
+        bool exit = false;
 
+        // While exit is false, keep looping and ask user for valid index to add polynomials
+        while (!exit)
+        {
+            Console.WriteLine("\n\n   Option 3 Menu: Multiply 2 Polynomials.");
+            Console.WriteLine("1) Input 2 index which you want to multiple together");
+            Console.WriteLine("2) EXIT Option 3 program!");
+
+            Console.WriteLine("\n\nCurrent Polynomials List: ");
+            collectionS.Print();
+            Console.WriteLine();
+
+            // Get user input that matches with the options above
+            Console.Write("Your input: ");
+            string userInput = Console.ReadLine();
+
+            // Parse the user input and then use switch statement to display menu and do the list manulipation according to
+            // option number input
+            if (int.TryParse(userInput, out int number))
+            {
+                if (number == 1)
+                {
+                    // Boolean to check if the indexes were properly read from user input
+                    bool readIdx1 = false;
+                    bool readIdx2 = false;
+
+                    // Display and take user input for indexes
+                    Console.Write("\nEnter 1st index: ");
+                    string idx1Input = Console.ReadLine();
+                    int idx1 = -1;
+
+                    Console.Write("\nEnter 2nd index: ");
+                    string idx2Input = Console.ReadLine();
+                    int idx2 = -1;
+
+                    // Parse the integers
+                    if (int.TryParse(idx1Input, out int numberIdx1))
+                    {
+                        idx1 = numberIdx1;
+                        readIdx1 = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter a valid index.");
+                    }
+
+                    // Parse the integers
+                    if (int.TryParse(idx2Input, out int numberIdx2))
+                    {
+                        idx2 = numberIdx2;
+                        readIdx2 = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter a valid index.");
+                    }
+
+                    // If both index are valid integers then add the polynomials and store it in the list
+                    if (readIdx1 && readIdx2)
+                    {
+                        collectionS.Insert(collectionS.Retrieve(idx1) * collectionS.Retrieve(idx2));
+                        Console.WriteLine("\n\nPolynomials have been multiplied and saved in the Polynomial list: ");
+                        collectionS.Print();
+                    }
+                }
+                else if (number == 2)
+                {
+                    exit = true;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid option.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid option.");
+            }
+        }
     }
 
-    // Summary: Option4 method is to display 
-    static void option4(Polynomials collectionS)
+    // Summary: Option4 method is to display sub menu system and to delete a polynomial at an index
+    static void option4(ref Polynomials collectionS)
     {
+        // If exit is false then the while loop will keep running
+        bool exit = false;
 
+        // While exit is false, keep looping and ask user for valid index to add polynomials
+        while (!exit)
+        {
+            Console.WriteLine("\n\n   Option 4 Menu: Deleting Polynomials.");
+            Console.WriteLine("1) Input an index which you want to delete from the list");
+            Console.WriteLine("2) EXIT Option 4 program!");
+
+            Console.WriteLine("\n\nCurrent Polynomials List: ");
+            collectionS.Print();
+            Console.WriteLine();
+
+            // Get user input that matches with the options above
+            Console.Write("Your input: ");
+            string userInput = Console.ReadLine();
+
+            // Parse the user input and then use switch statement to display menu and do the list manulipation according to
+            // option number input
+            if (int.TryParse(userInput, out int number))
+            {
+                if (number == 1)
+                {
+                    // Boolean to check if the index is properly read from user input
+                    bool readIdx1 = false;
+
+                    // Display and take user input for indexes
+                    Console.Write("\nEnter index: ");
+                    string idx1Input = Console.ReadLine();
+                    int idx1 = -1;
+
+                    // Parse the integers
+                    if (int.TryParse(idx1Input, out int numberIdx1))
+                    {
+                        idx1 = numberIdx1;
+                        readIdx1 = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter a valid index.");
+                    }
+
+                    // If index is valid integers then remove the polynomials
+                    if (readIdx1)
+                    {
+                        collectionS.Delete(idx1);
+                        Console.WriteLine("\n\nPolynomials have been removed from the Polynomial list: ");
+                        collectionS.Print();
+                    }
+                }
+                else if (number == 2)
+                {
+                    exit = true;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid option.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid option.");
+            }
+        }
     }
 
-    // Summary: Option5 method is to display 
-    static void option5(Polynomials collectionS)
+    // Summary: Option5 method is to display sub menu system and evalute a polynomial expressive with given x value
+    static void option5(ref Polynomials collectionS)
     {
+        // If exit is false then the while loop will keep running
+        bool exit = false;
 
+        // While exit is false, keep looping and ask user for valid index to add polynomials
+        while (!exit)
+        {
+            Console.WriteLine("\n\n   Option 5 Menu: Evaluate Polynomials.");
+            Console.WriteLine("1) Input an index which you want to Evaluate and input x value");
+            Console.WriteLine("2) EXIT Option 4 program!");
+
+            Console.WriteLine("\n\nCurrent Polynomials List: ");
+            collectionS.Print();
+            Console.WriteLine();
+
+            // Get user input that matches with the options above
+            Console.Write("Your input: ");
+            string userInput = Console.ReadLine();
+
+            // Parse the user input and then use switch statement to display menu and do the list manulipation according to
+            // option number input
+            if (int.TryParse(userInput, out int number))
+            {
+                if (number == 1)
+                {
+                    // Boolean to check if the index and x value is properly read from user input
+                    bool readIdx1 = false;
+                    bool readX = false;
+
+                    // Display and take user input for indexes
+                    Console.Write("\nEnter index: ");
+                    string idx1Input = Console.ReadLine();
+                    int idx1 = -1;
+
+                    // Display and take user input for x value
+                    Console.Write("\nEnter x value: ");
+                    string xValueInput = Console.ReadLine();
+                    int xVal = -1;
+
+                    // Parse the integers
+                    if (int.TryParse(idx1Input, out int numberIdx1))
+                    {
+                        idx1 = numberIdx1;
+                        readIdx1 = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter a valid index.");
+                    }
+
+                    // Parse the integers
+                    if (int.TryParse(xValueInput, out int numberXVal))
+                    {
+                        xVal = numberXVal;
+                        readX = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter a valid X value.");
+                    }
+
+                    // If index is valid integers then remove the polynomials
+                    if (readIdx1 && readX)
+                    {
+                        Console.WriteLine("\n\nPolynomial have been evaluated: ");
+                        collectionS.Retrieve(idx1).Print();
+                        Console.WriteLine("Output: " + collectionS.Retrieve(idx1).Evaluate(xVal) );
+                    }
+                }
+                else if (number == 2)
+                {
+                    exit = true;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid option.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid option.");
+            }
+        }
     }
 
-    // Summary: Option6 method is to display 
-    static void option6(Polynomials collectionS)
+    // Summary: Option6 method is to display sub menu system and allow user to clone a polynomial and
+    //          store it in the list
+    static void option6(ref Polynomials collectionS)
     {
+        // If exit is false then the while loop will keep running
+        bool exit = false;
 
+        // While exit is false, keep looping and ask user for valid index to add polynomials
+        while (!exit)
+        {
+            Console.WriteLine("\n\n   Option 6 Menu: Clone Polynomials.");
+            Console.WriteLine("1) Input an index which you want to clone from the list");
+            Console.WriteLine("2) EXIT Option 4 program!");
+
+            Console.WriteLine("\n\nCurrent Polynomials List: ");
+            collectionS.Print();
+            Console.WriteLine();
+
+            // Get user input that matches with the options above
+            Console.Write("Your input: ");
+            string userInput = Console.ReadLine();
+
+            // Parse the user input and then use switch statement to display menu and do the list manulipation according to
+            // option number input
+            if (int.TryParse(userInput, out int number))
+            {
+                if (number == 1)
+                {
+                    // Boolean to check if the index is properly read from user input
+                    bool readIdx1 = false;
+
+                    // Display and take user input for indexes
+                    Console.Write("\nEnter index: ");
+                    string idx1Input = Console.ReadLine();
+                    int idx1 = -1;
+
+                    // Parse the integers
+                    if (int.TryParse(idx1Input, out int numberIdx1))
+                    {
+                        idx1 = numberIdx1;
+                        readIdx1 = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter a valid index.");
+                    }
+
+                    // If index is valid integers then clone the polynomial and add to list
+                    if (readIdx1)
+                    {
+                        collectionS.Insert((Polynomial)collectionS.Retrieve(idx1).Clone());
+                        Console.WriteLine("\n\nPolynomials have been removed from the Polynomial list: ");
+                        collectionS.Print();
+                    }
+                }
+                else if (number == 2)
+                {
+                    exit = true;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid option.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid option.");
+            }
+        }
     }
 }
 
