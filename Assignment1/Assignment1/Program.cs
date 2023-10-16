@@ -51,7 +51,7 @@ public class Term : IComparable
     //          value after we power it by exponent and multiply it with coefficient
     public double Evaluate(double x)
     {
-        return this.Coefficient * Math.Pow(x, this.Exponent);
+        return (double) this.Coefficient * (double) Math.Pow((double) x, (double) this.Exponent);
     }
     
     // Summary: CompareTo method compares current object to another object
@@ -220,7 +220,7 @@ public class Polynomial : ICloneable
     // Summary: Operator + for polynomial will traverse through both p and q 
     //          polynomial and add their terms accordingly and return their
     //          simplified polynomial expression
-    public static Polynomial operator +(Polynomial p, Polynomial q)
+    public static Polynomial operator + (Polynomial p, Polynomial q)
     {
         // Result variable for return value, make a 0 polynomial
         Polynomial result = new Polynomial();
@@ -277,7 +277,7 @@ public class Polynomial : ICloneable
     // Summary: Operator * for polynomial will traverse through both p and q 
     //          polynomial and multiply their terms accordingly and return their
     //          simplified polynomial expression
-    public static Polynomial operator *(Polynomial p, Polynomial q)
+    public static Polynomial operator * (Polynomial p, Polynomial q)
     {
         // Result variable for return value, make a 0 polynomial
         Polynomial result = new Polynomial();
@@ -323,7 +323,7 @@ public class Polynomial : ICloneable
         {
             // Using Term's Evaluate method, we can get the double for current term
             // and add it to result, then move to current's next node
-            result += current.Item.Evaluate(x);
+            result += (double) current.Item.Evaluate(x);
             current = current.Next;
         }
 
@@ -361,7 +361,6 @@ public class Polynomial : ICloneable
         while (current != null)
         {
             result.AddTerm(new Term(S.Pop(), current.Item.Exponent));
-            result.Print();
             current = current.Next;
         }
 
@@ -438,6 +437,7 @@ public class Polynomials
         // Else throw a new execption
         if (i >= 1 && i <= L.Count)
         {
+            // Using i - 1 to accurately get index to find the item within the list
             return L[i - 1];
         }
         else
@@ -460,6 +460,7 @@ public class Polynomials
         // Else throw a new execption
         if (i >= 1 && i <= L.Count)
         {
+            // Using i - 1 to accurately get index to find the item within the list
             L.RemoveAt(i - 1);
         }
         else
@@ -1052,4 +1053,3 @@ class Program
         }
     }
 }
-
