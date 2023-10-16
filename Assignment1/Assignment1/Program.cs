@@ -356,9 +356,12 @@ public class Polynomial : ICloneable
         // Set current to front again, to traverse the polynomial again and then
         //      add each term with reversed order (S.pop) to result and move to
         //      next current node
+        current = this.front;
+
         while (current != null)
         {
             result.AddTerm(new Term(S.Pop(), current.Item.Exponent));
+            result.Print();
             current = current.Next;
         }
 
@@ -1027,8 +1030,9 @@ class Program
                     // If index is valid integers then clone the polynomial and add to list
                     if (readIdx1)
                     {
-                        collectionS.Insert((Polynomial)collectionS.Retrieve(idx1).Clone());
-                        Console.WriteLine("\n\nPolynomials have been removed from the Polynomial list: ");
+                        Polynomial cloned = (Polynomial)collectionS.Retrieve(idx1).Clone();
+                        collectionS.Insert(cloned);
+                        Console.WriteLine("\n\nPolynomial have been Cloned and added to the Polynomial list: ");
                         collectionS.Print();
                     }
                 }
